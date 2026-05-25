@@ -1,16 +1,6 @@
 // =====================================================================
-// Módulo de la Sesión 3 - escena3.js (VERSIÓN INTEGRAL HAND CURSOR)
-// Sintonía por perilla, sonidos Sonic Pi, video 3.mp4 y cursor apuntando
-// =====================================================================
-
-// =====================================================================
-// Módulo de la Sesión 3 - escena3.js (VERSIÓN CALIBRADA GEOMÉTRICAMENTE)
-// Mueble y pantalla desplazados verticalmente para evitar colisión de texto UI
-// =====================================================================
-
-// =====================================================================
-// Módulo de la Sesión 3 - escena3.js (VERSIÓN CORREGIDA Y CALIBRADA)
-// Reparación de inicialización de array y ajuste geométrico del televisor
+// Módulo de la Sesión 3 - escena3.js (VERSIÓN ALINEACIÓN TOTAL)
+// Sintonía, render visual de la perilla y sensor de click unificados en Y: 190
 // =====================================================================
 
 function dibujarEscena3Yoasobi() {
@@ -29,7 +19,7 @@ function dibujarEscena3Yoasobi() {
   rect(130, 140, 450, 300, 10); 
   pop();
 
-  // 📺 2. BARRAS DE COLOR SMPTE (7 Canales de información declarados limpiamente)
+  // 📺 2. BARRAS DE COLOR SMPTE (7 Canales de información)
   let coloresBars = [
     color(220, 220, 220), // Canal 1: Blanco
     color(255, 255, 0),   // Canal 2: Amarillo
@@ -59,14 +49,14 @@ function dibujarEscena3Yoasobi() {
   // 🎛️ 3. PANEL DE CONTROL LATERAL
   fill(30); rect(600, 140, 80, 300, 5);
   
-  // PERILLA SELECTORA CALIBRADA (Nueva posición central Y: 190)
+  // 🌟 PERILLA SELECTORA UNIFICADA (Render y Sensor exactamente en Y: 190)
   let dPerilla = dist(mouseX, mouseY, 640, 190);
   let angulo = map(paradasCompletadas, 0, 7, 0, TWO_PI);
 
   push();
-  translate(640, 190);
+  translate(640, 190); // Mueve la perilla visual a la altura del sensor
   
-  // 🌟 CONTROL DE CURSOR Y COLOR
+  // Control de cursor y color interactivo de la perilla
   if (dPerilla < 25 && !mostrandoTexto && paradasCompletadas < 7) {
     fill(255, 255, 0); stroke(255); 
   } else {
@@ -91,9 +81,9 @@ function dibujarEscena3Yoasobi() {
     }
   }
 
-  // Etiquetas y botones decorativos empujados proporcionalmente hacia abajo
+  // Etiquetas y botones decorativos alineados a la nueva altura
   fill(0, 255, 255); textAlign(CENTER); textSize(9); textFont("Courier New");
-  text("CH SELECTOR", 640, 155);
+  text("CH SELECTOR", 640, 155); // Centrado arriba de la perilla
   
   fill(50); stroke(80); circle(640, 265, 35); // Perilla de volumen fija
   fill(120, 0, 0); noStroke(); rect(620, 335, 40, 18, 2); // Power
@@ -125,18 +115,18 @@ function dispararSonidoTV(i) {
   }
 }
 
-// 🌟 DETECCIÓN DE CLICK EN LA PERILLA (CORREGIDA SIN ERROR DE ORTOGRAFÍA)
+// 🌟 DETECCIÓN DE CLICK EN LA PERILLA (UNIFICADA CON EL DIBUJO EN Y: 190)
 function evaluarClickTV() {
   if (mostrandoTexto || paradasCompletadas >= 7) return;
 
-  let d = dist(mouseX, mouseY, 640, 130);
+  let d = dist(mouseX, mouseY, 640, 190); // Coincide milimétricamente con el translate
   if (d < 25) {
-    let canalSintonizadoActualmente = paradasCompletadas; // Variable limpia corregida
+    let canalSintonizadoActualmente = paradasCompletadas; 
     
     dispararSonidoTV(canalSintonizadoActualmente);
     triggerTextoTV(canalSintonizadoActualmente + 1);
     
-    // 📺 Inyección perfecta del video 3.mp4 exactamente en la parada 3 (Asociaciones)
+    // 📺 Inyección del video 3.mp4 exactamente en la parada 3
     if (canalSintonizadoActualmente === 2) {
       lanzarVideoEscena('3.mp4', width - 280, 160, 200, 150);
     }
@@ -146,35 +136,33 @@ function evaluarClickTV() {
 // 📄 GESTOR DE CONTENIDOS YOASOBI
 function triggerTextoTV(n) {
   scrollTextoY = 0; sliderPosPercent = 0;
-  paradasCompletadas = n; // Asignamos directamente el número de canal estabilizado
+  paradasCompletadas = n; 
   mostrandoTexto = true;
 
   switch(n) {
     case 1:
-      textoMostrar = "DIARIO DE CAMPO:\n\n El éxito de los primeros experimentos con la cámara desató una ola de emoción y preguntas: si ya podía transformar mis gestos en sonido, ¿qué dirección quería tomar? ¿Qué oportunidades ofrece esta nueva forma de interacción con imágenes y video? ¿Cómo agrego personalidad a los gestos? Tenía la libertad de cambiar el tono, la duración de las notas o llenarlo todo de efectos. Podía, incluso, replicar un Theremin si me lo proponía. Pero en medio de esa excitación, apareció una pregunta más profunda: ¿qué tipo de música quería construir realmente? Tener libertad absoluta puede convertirse en un caos hermoso, pero sigue siendo un caos.\n Inspirado en la energía y las capas armónicas del J-Pop moderno (como Yoasobi o Ado), decidí que esta etapa no se trataría de acumular herramientas, sino de elegir con pinzas. En lugar de desechar mis pruebas anteriores, tomé la decisión de meter todas las etapas de mi experimentación dentro del mismo saco y ordenarlas a través de reglas musicales claras.";
+      textoMostrar = "DIARIO DE CAMPO:\n\n El éxito de los primeros experimentos con la cámara desató una ola de emoción y preguntas: si ya podía transformar mis gestos en sonido, ¿qué dirección quería tomar? ¿Qué oportunidades ofrece esta nueva forma de interacción con imágenes y video? ¿Cómo agrego personalidad a los gestos? Tenía la libertad de cambiar el tono, la duración de las notas o llenarlo todo de efectos. Podía, incluso, replicar un Theremin si me lo proponía. Pero en medio de esa excitación, apareció una pregunta más profunda: ¿qué tipo de música quería construir realmente? Tener libertad absoluta puede convertirse en un caos hermoso, pero sigue siendo un caos.\n\nInspirado en la energía y las capas armónicas del J-Pop moderno (como Yoasobi o Ado), decidí que esta etapa no se trataría de acumular herramientas, sino de elegir con pinzas. En lugar de desechar mis pruebas anteriores, tomé la decisión de meter todas las etapas de mi experimentación dentro del mismo saco y ordenarlas a través de reglas musicales claras.";
       break;
     case 2:
       textoMostrar = "REFLEXIONES DE CAMPO:\n\nEl quiebre más importante en esta etapa ocurrió al enfrentarme a la paradoja de la libertad absoluta en el código. Pasar de la frustración inicial de no saber nada de música a tener un sistema que me permitía alterar cualquier parámetro (notas, duraciones, efectos) me generó una ansiedad creativa: ¿libertades para hacer qué?. Mi gran aprendizaje no fue técnico, sino curatorial. Comprendí que para construir un objeto artístico coherente no debía descartar mis tropiezos ni mis borradores previos, sino integrarlos como parte de mi evolución. Aprendí a dialogar con el algoritmo no desde la imposición de comandos, sino desde la negociación: seleccionar y sacrificar opciones (como reducir la complejidad del RGB a una sola variable de Tono/Hue) para alcanzar un balance sano entre el azar del cuerpo y las reglas armónicas de la música. Descubrí que ponerle límites a la máquina es, en realidad, lo que me permitió encontrar mi propia voz dentro del proyecto.";
       break;
     case 3:
-      textoMostrar = "ASOCIACIONES MUSICALES:\n\nYoasobi X ADO\nEspera que se cargue el video\n\nLa música de Yoasobi, inspira fuertemente openings de Animé. \n En este punto, las diferentes opciones que permitían mis experimentaciones generaban un caos hermoso, pero caos al fin. Musicalmente me interesé por de qué forma lograr sonidos armónico o que tuvieran sentido dentro de este caos, haciendo uso de escalas o armonías. Que tomaban información de los gestos y datos que compartía. Otra decisión relevante aquí fue el abandonar la idea de enviar los datos RGB (3 datos) y enviar en su lugar datos que resultaban más valiosos como el Hue(Tono) (0 a 360, rojo 0, 60 Amarillo 180 Cian 300 Magenta), reduciendo el color a solo 1 variables, la posición de las manos X,Y, la velocidad del gesto y qué mano estábamos utilizando. Esto para mapear las decisiones sonoras que finalmente se utilizarían en la obra. ";
+      textoMostrar = "ASOCIACIONES MUSICALES:\n\nYoasobi X ADO\nEspera que se cargue el video\n\nLa música de Yoasobi, inspira fuertemente openings de Animé. \n\nEn este punto, las diferentes opciones que permitían mis experimentaciones generaban un caos hermoso, pero caos al fin. Musicalmente me interesé por de qué forma lograr sonidos armónico o que tuvieran sentido dentro de este caos, haciendo uso de escalas o armonías. Que tomaban información de los gestos y datos que compartía. Otra decisión relevante aquí fue el abandonar la idea de enviar los datos RGB (3 datos) y enviar en su lugar datos que resultaban más valiosos como el Hue(Tono) (0 a 360, rojo 0, 60 Amarillo 180 Cian 300 Magenta), reduciendo el color a solo 1 variables, la posición de las manos X,Y, la velocidad del gesto y qué mano estábamos utilizando. Esto para mapear las decisiones sonoras que finalmente se utilizarían en la obra. ";
       break;
     case 4:
-      textoMostrar = "AUTOENTREVISTA:\n\n— Si la visión por computadora te entregaba un abanico infinito como el RGB, ¿por qué decidiste 'sacrificar' esa complejidad y reducir el color a una sola variable como el Hue? \n— Tener el control de todos los parámetros simultáneamente no produce música, produce un caos hermoso pero incomprensible. Mi gran aprendizaje en este nodo no fue técnico, sino curatorial. Al querer asociar un pixel (color) a un sonido. RGB al ser 3 variables que dan mucho control, pero poca practicidad de lo que queremos capturar. En cambio la variable unidimensional del Hue (0 a 360°) lograba capturar de forma limpia los colores dominantes (Rojo, Amarillo, Cian, Magenta) facilitando la decisión y permitiendo que las personalidades y variaciones de los tonos vinieran de otros aspectos, como la posición o la velocidad. Que en mi cabeza son más intuitivos. Ahora, no creamos que esto no tuvo un compromiso. Esto generó un problema serio: EL Rojo al mismo era 0 y 360. del mismo modo que el blanco y el negro eran lo mismo, pero bueno, una cosa a la vez.";
+      textoMostrar = "AUTOENTREVISTA (REDUCCIÓN CURATORIAL):\n\n— Si la visión por computadora te entregaba un abanico infinito como el RGB, ¿por qué decidiste 'sacrificar' esa complejidad y reducir el color a una sola variable como el Hue?\n\n— Porque descubrí la paradoja de la libertad absoluta en el código: tener el control de todos los parámetros simultáneamente no produce música, produce un caos hermoso pero incomprensible. Mi gran aprendizaje en este nodo no fue técnico, sino curatorial. El espectro RGB ofrece tres variables de gran control matemático, pero de nula practicidad para capturar la esencia cromática en una acción performática fluida. Al reducir el sistema a la variable unidimensional del Hue (0 a 360°), logré mapear de forma limpia los colores dominantes hacia decisiones armónicas estables. Esto permitió que las variaciones del tono nacieran de la corporalidad (posición y velocidad del gesto), volviendo la interacción mucho más intuitiva y orgánica.";
       break;
     case 5:
-      textoMostrar = "TEXTOS DE DESAHOGO:\n\nMaldito RGB!!!! Te amo Hue. Me arreglaste la vida!!!!";
+      textoMostrar = "TEXTOS DE DESAHOGO:\n\n[REGISTRO DE CRISIS - ARGGG! 🛑]\n¡Maldito RGB completo! Intentar mapear tres dimensiones crudas simultáneamente satura el buffer de red y solo produce un chillido industrial insoportable. Tener libertad absoluta sin estructura es una trampa de ansiedad creativa.\n\n[REGISTRO DE GLORIA - OHHH! ✨]\n¡Te amo Hue! Me salvaste el diseño de interacción. Al contener el color en una sola variable, el caos algorítmico se domestica por completo. El flujo es limpio, los datos responden en tiempo real y el ruido se transforma por fin en música.";
       break;
     case 6:
-      textoMostrar = "POÉTICA:\n\n-DATA+MUSIC\n\nInspirado en la energía y las capas armónicas del J-Pop moderno (como Yoasobi o Ado), esta obra despliega los elementos que son relevantes para explicar el proceso de abandonar los datos y encausarlos hacia la música. En lugar de desechar mis pruebas anteriores, tomé la decisión de meter todas las etapas de mi experimentación dentro del mismo saco y ordenarlas a través de reglas musicales claras. \nEsta escena es una invitación a entender que poner límites y elegir qué sonidos queremos escuchar no nos quita libertad, sino que nos da el control para crear algo armónico.";
+      textoMostrar = "POÉTICA:\n\n-DATA+MUSIC\n\nInspirado en la energía y las capas armónicas del J-Pop moderno (como Yoasobi o Ado), esta obra despliega los elementos que son relevantes para explicar el proceso de abandonar los datos y encausarlos hacia la música. En lugar de desechar mis pruebas anteriores, tomé la decisión de meter todas las etapas de mi experimentación dentro del mismo saco y ordenarlas a través de reglas musicales claras. \n\nEsta escena es una invitación a entender que poner límites y elegir qué sonidos queremos escuchar no nos quita libertad, sino que nos da el control para crear algo armónico.";
       break;
     case 7:
       textoMostrar = "LLEGAMOS A LA CIMA:\n\nFrente a la Disyuntiva elegir las 2 opciones.\n\nMe inspiró a no abandonar mis ejercicios previos (los que mostraban el proceso y dejarlo como parte integra de la obra).\n- Perderse en territorio inútil.\nUn objeto muy pequeño, su centro\n\n#Biker #Armonías #SonidoAMúsica";
       break;
   }
 }
-
-
 
 function handleTecladoContinuo() {
   if (escenaActual === 1 && !mostrandoTexto) { if (keyIsDown(RIGHT_ARROW)) velocidadBici += 0.35; }
