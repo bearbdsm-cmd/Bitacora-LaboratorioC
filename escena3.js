@@ -8,6 +8,11 @@
 // Mueble y pantalla desplazados verticalmente para evitar colisión de texto UI
 // =====================================================================
 
+// =====================================================================
+// Módulo de la Sesión 3 - escena3.js (VERSIÓN CORREGIDA Y CALIBRADA)
+// Reparación de inicialización de array y ajuste geométrico del televisor
+// =====================================================================
+
 function dibujarEscena3Yoasobi() {
   let oscilacion = sin(frameCount * 0.04) * 12;
 
@@ -24,26 +29,15 @@ function dibujarEscena3Yoasobi() {
   rect(130, 140, 450, 300, 10); 
   pop();
 
-  // 📺 2. BARRAS DE COLOR SMPTE (7 Canales de información)
+  // 📺 2. BARRAS DE COLOR SMPTE (7 Canales de información declarados limpiamente)
   let coloresBars = [
     color(220, 220, 220), // Canal 1: Blanco
     color(255, 255, 0),   // Canal 2: Amarillo
-    color(0, 255, 255),   // Canal 3: Cyan (Video 3.mp4)
+    color(0, 255, 255),   // Canal 3: Cyan
     color(0, 255, 0),     // Canal 4: Verde
     color(255, 0, 255),   // Canal 5: Magenta
-    color(255, 0,  red(coloresBars = [color(255, 0, 0)])), // Canal 6: Rojo (parche sintaxis)
+    color(255, 0, 0),     // Canal 6: Rojo
     color(0, 0, 255)      // Canal 7: Azul
-  ];
-  
-  // Re-declaración limpia del array por seguridad
-  coloresBars = [
-    color(220, 220, 220),
-    color(255, 255, 0),
-    color(0, 255, 255),
-    color(0, 255, 0),
-    color(255, 0, 255),
-    color(255, 0, 0),
-    color(0, 0, 255)
   ];
 
   let barW = 450 / 7;
@@ -105,7 +99,7 @@ function dibujarEscena3Yoasobi() {
   fill(120, 0, 0); noStroke(); rect(620, 335, 40, 18, 2); // Power
   fill(0, 100, 0); rect(620, 375, 40, 18, 2);  // Reset
 
-  // 📢 TEXTO INFORMATIVO UI (Alineado simétricamente con el resto de la bitácora)
+  // 📢 TEXTO INFORMATIVO UI
   if (!mostrandoTexto) {
     fill(255, 255, 0); textAlign(CENTER); textSize(14);
     if (paradasCompletadas < 7) {
