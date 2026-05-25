@@ -175,7 +175,7 @@ function triggerTextoRez(n) {
       textoMostrar = "TEXTOS DE DESAHOGO:\n\n¡Fallo la wea en la presentación final! Con un error que nunca antes había ocurrido. ¿Qué puedo aprender de eso? ¿Cómo salgo de esto en el futuro?\n\n[Reflexión post-crisis]: El desahogo técnico se transformó en una epifanía. Lo que empezó como un GPS mudo en la bicicleta ahora es una estructura polirrítmica compacta y asimétrica de 7 tiempos que corre de manera fluida frente a mis ojos. ¡La negociación con el código dio frutos!";
       break;
     case 6:
-      textoMostrar = "POÉTICA:\n\nIMAGÓFONO v1.0\n\nLas imágenes digitales no solo se pueden ver. ¿Qué sonido hace un píxel? ¿Cómo suena el rojo, el azul, el cian o el magenta?\n\nEsta parte de la obra es mucho más física, expresiva y experimental. Se invita al espectador a llevar el imagófono al límite, inspirarse con las imágenes desplegadas y descubrir qué música pueden construir con su cuerpo.";
+      textoMostrar = "POÉTICA:\n\nIMAGÓFONO v1.0\n\nLas imágenes digitales no solo se pueden ver. ¿Qué sonido hace un píxel? ¿Cómo suena el rojo, el azul, el cian o el magenta?";
       break;
     case 7:
       textoMostrar = "LA MÚSICA HA SIDO CREADA:\n\nEnfatizar las repeticiones.\n\nAquí la frase fue más una confirmación de lo que ya quería hacer. La construcción del sintetizador asimétrico que repite 7 tiempos me ayudó a controlar la orquesta de elementos que quería incorporar de las sesiones previas para cerrar la bitácora de forma simétrica.\n\n- Siempre darse crédito por tener algo más que personalidad.\n- Llama a tu madre y pregúntale qué hacer.\n\n#Beats #Ritmo #Secuenciador";
