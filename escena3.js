@@ -3,20 +3,25 @@
 // Sintonía por perilla, sonidos Sonic Pi, video 3.mp4 y cursor apuntando
 // =====================================================================
 
+// =====================================================================
+// Módulo de la Sesión 3 - escena3.js (VERSIÓN CALIBRADA GEOMÉTRICAMENTE)
+// Mueble y pantalla desplazados verticalmente para evitar colisión de texto UI
+// =====================================================================
+
 function dibujarEscena3Yoasobi() {
   let oscilacion = sin(frameCount * 0.04) * 12;
 
   background(25); // Ambiente oscuro de habitación de edición
 
-  // 1. ESTRUCTURA DEL TELEVISOR (Mueble de madera retro)
+  // 1. ESTRUCTURA DEL TELEVISOR (Mueble de madera retro - Desplazado a Y: 110)
   fill(60, 40, 20); noStroke();
-  rect(100, 50, 600, 400, 20); 
-  fill(40, 25, 10); rect(100, 430, 600, 20); // Sombra base
+  rect(100, 110, 600, 360, 20); 
+  fill(40, 25, 10); rect(100, 465, 600, 15); // Sombra base adaptada
 
   // Marco de la pantalla CRT
   push();
   fill(0); stroke(80); strokeWeight(15);
-  rect(130, 80, 450, 340, 10); 
+  rect(130, 140, 450, 300, 10); 
   pop();
 
   // 📺 2. BARRAS DE COLOR SMPTE (7 Canales de información)
@@ -26,8 +31,19 @@ function dibujarEscena3Yoasobi() {
     color(0, 255, 255),   // Canal 3: Cyan (Video 3.mp4)
     color(0, 255, 0),     // Canal 4: Verde
     color(255, 0, 255),   // Canal 5: Magenta
-    color(255, 0, 0),     // Canal 6: Rojo
+    color(255, 0,  red(coloresBars = [color(255, 0, 0)])), // Canal 6: Rojo (parche sintaxis)
     color(0, 0, 255)      // Canal 7: Azul
+  ];
+  
+  // Re-declaración limpia del array por seguridad
+  coloresBars = [
+    color(220, 220, 220),
+    color(255, 255, 0),
+    color(0, 255, 255),
+    color(0, 255, 0),
+    color(255, 0, 255),
+    color(255, 0, 0),
+    color(0, 0, 255)
   ];
 
   let barW = 450 / 7;
@@ -39,24 +55,24 @@ function dibujarEscena3Yoasobi() {
       fill(red(c) * 0.15, green(c) * 0.15, blue(c) * 0.15); // Barra apagada
     }
     noStroke();
-    rect(130 + (i * barW), 80, barW, 340);
+    rect(130 + (i * barW), 140, barW, 300);
   }
 
-  // Estética de líneas de escaneo (Scanlines)
+  // Estética de líneas de escaneo (Scanlines adaptadas al nuevo marco)
   stroke(0, 0, 0, 45); strokeWeight(1);
-  for (let i = 80; i < 420; i += 4) { line(130, i, 580, i); }
+  for (let i = 140; i < 440; i += 4) { line(130, i, 580, i); }
 
   // 🎛️ 3. PANEL DE CONTROL LATERAL
-  fill(30); rect(600, 80, 80, 340, 5);
+  fill(30); rect(600, 140, 80, 300, 5);
   
-  // PERILLA SELECTORA (CH SELECTOR)
-  let dPerilla = dist(mouseX, mouseY, 640, 130);
+  // PERILLA SELECTORA CALIBRADA (Nueva posición central Y: 190)
+  let dPerilla = dist(mouseX, mouseY, 640, 190);
   let angulo = map(paradasCompletadas, 0, 7, 0, TWO_PI);
 
   push();
-  translate(640, 130);
+  translate(640, 190);
   
-  // 🌟 CONTROL DE CURSOR Y COLOR: Cambia al dedo apuntando al pasar sobre la perilla
+  // 🌟 CONTROL DE CURSOR Y COLOR
   if (dPerilla < 25 && !mostrandoTexto && paradasCompletadas < 7) {
     fill(255, 255, 0); stroke(255); 
   } else {
@@ -70,33 +86,32 @@ function dibujarEscena3Yoasobi() {
   rect(-5, -20, 10, 24, 2);
   pop();
 
-  // 👆 ACTIVACIÓN GLOBAL DEL CURSOR COMO DEDO APUNTANDO (HAND)
+  // 👆 ACTIVACIÓN GLOBAL DEL CURSOR (HAND)
   if (mostrandoTexto) {
-    cursor(HAND); // Dedo apuntando si la ventana flotante está abierta
+    cursor(HAND); 
   } else {
-    // Si estás flotando sobre la perilla o ya ganaste todo el nivel y estás listo para el click de avanzar
     if ((dPerilla < 25 && paradasCompletadas < 7) || paradasCompletadas >= 7) {
       cursor(HAND); 
     } else {
-      cursor(ARROW); // Puntero tradicional en el resto de la pantalla
+      cursor(ARROW); 
     }
   }
 
-  // Etiquetas y botones decorativos
+  // Etiquetas y botones decorativos empujados proporcionalmente hacia abajo
   fill(0, 255, 255); textAlign(CENTER); textSize(9); textFont("Courier New");
-  text("CH SELECTOR", 640, 95);
+  text("CH SELECTOR", 640, 155);
   
-  fill(50); stroke(80); circle(640, 210, 35); // Perilla de volumen (fija)
-  fill(120, 0, 0); noStroke(); rect(620, 290, 40, 18, 2); // Power
-  fill(0, 100, 0); rect(620, 330, 40, 18, 2);  // Reset
+  fill(50); stroke(80); circle(640, 265, 35); // Perilla de volumen fija
+  fill(120, 0, 0); noStroke(); rect(620, 335, 40, 18, 2); // Power
+  fill(0, 100, 0); rect(620, 375, 40, 18, 2);  // Reset
 
-  // 📢 TEXTO INFORMATIVO UI
+  // 📢 TEXTO INFORMATIVO UI (Alineado simétricamente con el resto de la bitácora)
   if (!mostrandoTexto) {
     fill(255, 255, 0); textAlign(CENTER); textSize(14);
     if (paradasCompletadas < 7) {
-      text("🖱️ HAZ CLICK EN 'CH SELECTOR' PARA SINTONIZAR EL CANAL " + (paradasCompletadas + 1), width / 2, 35);
+      text("🖱️ HAZ CLICK EN 'CH SELECTOR' PARA SINTONIZAR EL CANAL " + (paradasCompletadas + 1), width / 2, 60);
     } else {
-      text("✅ SINTONÍA COMPLETADA. HAZ CLICK EN CUALQUIER LADO PARA IR AL FINAL.", width / 2, 475);
+      text("✅ SINTONÍA COMPLETADA. HAZ CLICK EN CUALQUIER LADO PARA IR AL FINAL.", width / 2, 60);
     }
   }
 }
