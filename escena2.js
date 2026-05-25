@@ -48,7 +48,7 @@ function dibujarEscena2Theremin() {
   if (!mostrandoTexto) {
     fill(255, 255, 0); textAlign(CENTER); textFont("Courier New"); textSize(14); noStroke();
     if (paradasCompletadas < 7) {
-      text("🎯 APUNTA Y DISPARA AL BLANCO ACTIVO. PREMIO EN DISPUTA: " + premioActual + " / 7 🧸", width / 2, 85);
+      text("TOCA LAS FIGURAS DESPLEGADAS Y RECIBE TU PREMIO: " + premioActual + " / 7 🧸", width / 2, 85);
     }
   }
 
