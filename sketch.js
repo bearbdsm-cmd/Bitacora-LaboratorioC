@@ -74,13 +74,12 @@ function draw() {
   }
 
   // 2. RENDER DE LAS ESCENAS (Ahora se dibujan primero, incluyendo sus fondos oscuros)
+// .... (Tu switch de escenas se mantiene igual arriba)
   switch (escenaActual) {
     case 0:
       if (typeof dibujarEscena0Logo === 'function') dibujarEscena0Logo();
       break;
     default:
-      // 🌟 CAMBIO CLAVE: Quitamos la interfaz de aquí arriba para que los backgrounds 
-      // de escena3.js y escena4.js no la tapen al ejecutarse.
       if (escenaActual === 1) dibujarEscena1Bici();
       if (escenaActual === 2) dibujarEscena2Theremin();
       if (escenaActual === 3) dibujarEscena3Yoasobi();
@@ -90,6 +89,24 @@ function draw() {
       }
       break;
   }
+
+  // 🌟 NUEVA INSTRUCCIÓN DINÁMICA PARA LA ESCENA 3 (Yoasobi)
+  // Si no hay un cuadro de diálogo abierto, le muestra al espectador el contador de colores
+  if (escenaActual === 3 && !mostrandoTexto) {
+    fill(255, 255, 0); textAlign(CENTER); textSize(14); noStroke(); fontStyle = undefined; textFont("Courier New");
+    if (paradasCompletadas < 7) {
+      text("📺 INTERACTÚA CON LAS PERILLAS PARA SINTONIZAR LOS COLORES (" + paradasCompletadas + " / 7)", width / 2, 90);
+    } else {
+      text("✨ SINTONÍA ESTABLE: HAZ CLICK EN LA PANTALLA PARA AVANZAR ✨", width / 2, 90);
+    }
+  }
+
+  // Capa superior de interfaz (Se pinta al final, blindada sobre cualquier escena)
+  if (escenaActual > 0) {
+    dibujarInterfazUI(); 
+  }
+  
+  // .... (El resto del draw con el cuadro de texto y el ancla de video queda igual hacia abajo)
 
   // 3. CAPA SUPERIOR DE INTERFAZ (Se pinta al final, blindada sobre cualquier escena)
   if (escenaActual > 0) {
@@ -298,6 +315,16 @@ function keyPressed() {
 
 function ejecutarBotonBack() {
   limpiarVideoGlobal(); 
+  
+  // 🌟 EL PARCHE DE SEGURIDAD: Si el usuario presiona BACK desde la Escena 4,
+  // apagamos y destruimos a la fuerza el video 5.mp4 (videoLoopPortada) para que no flote en las otras pantallas.
+  if (typeof videoLoopPortada !== 'undefined' && videoLoopPortada !== null) {
+    videoLoopPortada.stop();
+    videoLoopPortada.remove();
+    videoLoopPortada = null;
+    videoPortadaInicializado = false;
+  }
+
   if (escenaActual > 0) {
     if (escenaActual === 1) {
       if (mostrandoTexto) { mostrandoTexto = false; } 
@@ -307,11 +334,12 @@ function ejecutarBotonBack() {
       } else { escenaActual = 0; biciX = 40; }
     } else {
       escenaActual--;
+      // Si retrocedemos a la Escena 3, reiniciamos su contador de sintonías a 0
+      paradasCompletadas = 0; 
       if (escenaActual === 1) { biciX = width - 60; paradasCompletadas = totalParadas; }
     }
   }
 }
-
 function keyTyped() {
   limpiarVideoGlobal(); 
   
