@@ -118,12 +118,15 @@ function lanzarVideoEscena(rutaVideo, posX, posY, ancho, alto) {
   limpiarVideoGlobal(); 
   videoEscenaActivo = createVideo([rutaVideo]);
   videoEscenaActivo.size(ancho, alto);
-  videoEscenaActivo.loop(); 
   
-  // 🌟 EL PARCHE DEFINITIVO DE AUDIO MULTIMEDIA:
-  // Cambiamos el volumen a 1 (100%). Como el usuario ya hizo click/Enter al inicio,
-  // el navegador permitirá el audio del video de forma fluida y sin bloqueos.
+  // 🌟 EL TRUCO MAESTRO NATIVO PARA GITHUB PAGES:
+  // Forzamos al elemento HTML subyacente (.elt) a apagar el mute nativo,
+  // permitiendo que el navegador lea el canal de audio del archivo .mp4.
+  videoEscenaActivo.elt.muted = false; 
+  videoEscenaActivo.elt.volume = 1.0;
   videoEscenaActivo.volume(1); 
+  
+  videoEscenaActivo.loop(); 
   
   let canvasPos = canvas.getBoundingClientRect();
   videoEscenaActivo.position(canvasPos.left + (width - 280), canvasPos.top + 165);
