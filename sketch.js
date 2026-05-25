@@ -96,8 +96,6 @@ function draw() {
     fill(255, 255, 0); textAlign(CENTER); textSize(14); noStroke(); fontStyle = undefined; textFont("Courier New");
     if (paradasCompletadas < 7) {
       text("📺 TOCA LA PERILLAS PARA SINTONIZAR LOS COLORES (" + paradasCompletadas + " / 7)", width / 2, 90);
-    } else {
-      text("✨ SINTONÍA ESTABLE: HAZ CLICK EN LA PANTALLA PARA AVANZAR ✨", width / 2, 90);
     }
   }
 
