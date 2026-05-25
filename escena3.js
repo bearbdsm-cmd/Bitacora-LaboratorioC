@@ -93,8 +93,7 @@ function dibujarEscena3Yoasobi() {
   if (!mostrandoTexto) {
     fill(255, 255, 0); textAlign(CENTER); textSize(14);
     if (paradasCompletadas < 7) {
-      text("🖱️ HAZ CLICK EN 'CH SELECTOR' PARA SINTONIZAR EL CANAL " + (paradasCompletadas + 1), width / 2, 60);
-    } else {
+      } else {
       text("✅ SINTONÍA COMPLETADA. HAZ CLICK EN CUALQUIER LADO PARA IR AL FINAL.", width / 2, 60);
     }
   }
