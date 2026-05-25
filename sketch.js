@@ -99,21 +99,45 @@ function draw() {
 }
 
 function dibujarInterfazUI() {
+  // Fondo oscuro de la barra superior
   fill(30); noStroke(); rect(0, 0, width, 45);
+  
+  // Botón < BACK interactivo
   fill(50); stroke(120); strokeWeight(1); rect(15, 10, 65, 25, 3);
-  noStroke(); fill(255, 255, 0); textAlign(CENTER, CENTER); textSize(11); text("< BACK", 47, 22);
+  noStroke(); fill(255, 255, 0); textAlign(CENTER, CENTER); textSize(11); textFont("Courier New");
+  text("< BACK", 47, 22);
+  
+  // Título central de la obra
   fill(255); textAlign(LEFT, CENTER); textSize(13); textFont("Courier New");
   text("BITÁCORA Laboratorio C | Osvaldo Osorio | MAM 2026", 100, 22);
   
+  // 🌟 EL PARCHE EN EL TECHO: Consistencia absoluta de etiquetas en el extremo derecho
   textAlign(RIGHT, CENTER); fill(0, 255, 255);
-  if (escenaActual === 5) {
-    text("SESIÓN: EPÍLOGO", width - 15, 22);
-  } else {
-    text("SESIÓN: " + escenaActual + " / 4", width - 15, 22);
+  
+  switch (escenaActual) {
+    case 1:
+      text("SESIÓN 1: RUTA CINÉTICA | " + paradasCompletadas + " / 7", width - 15, 22);
+      break;
+    case 2:
+      text("SESIÓN 2: SINESTESIA GESTUAL | " + paradasCompletadas + " / 7", width - 15, 22);
+      break;
+    case 3:
+      text("SESIÓN 3: ORDEN DE LA ESTRUCTURA | " + paradasCompletadas + " / 7", width - 15, 22);
+      break;
+    case 4:
+      text("SESIÓN 4: POLIFONÍA ESPACIAL | " + paradasCompletadas + " / 7", width - 15, 22);
+      break;
+    case 5:
+      text("SISTEMA: EPÍLOGO ARCHIVADO", width - 15, 22);
+      break;
+    default:
+      text("SESIÓN: " + escenaActual + " / 4", width - 15, 22);
+      break;
   }
+  
+  // Línea divisoria inferior
   stroke(60); strokeWeight(2); line(0, 45, width, 45);
 }
-
 function lanzarVideoEscena(rutaVideo, posX, posY, ancho, alto) {
   limpiarVideoGlobal(); 
   videoEscenaActivo = createVideo([rutaVideo]);
