@@ -119,7 +119,11 @@ function lanzarVideoEscena(rutaVideo, posX, posY, ancho, alto) {
   videoEscenaActivo = createVideo([rutaVideo]);
   videoEscenaActivo.size(ancho, alto);
   videoEscenaActivo.loop(); 
-  videoEscenaActivo.volume(0); 
+  
+  // 🌟 EL PARCHE DEFINITIVO DE AUDIO MULTIMEDIA:
+  // Cambiamos el volumen a 1 (100%). Como el usuario ya hizo click/Enter al inicio,
+  // el navegador permitirá el audio del video de forma fluida y sin bloqueos.
+  videoEscenaActivo.volume(1); 
   
   let canvasPos = canvas.getBoundingClientRect();
   videoEscenaActivo.position(canvasPos.left + (width - 280), canvasPos.top + 165);
