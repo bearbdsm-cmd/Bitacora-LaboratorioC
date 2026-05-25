@@ -177,6 +177,7 @@ function ejecutarCierreDeVentana() {
 }
 
 function mousePressed() {
+  userStartAudio();
   if (mouseX > 15 && mouseX < 80 && mouseY > 10 && mouseY < 35) { 
     ejecutarBotonBack(); 
     return; 
@@ -253,6 +254,9 @@ function mousePressed() {
 }
 
 function keyPressed() {
+  if (keyCode === ENTER) {
+    userStartAudio(); 
+  }
   if (escenaActual === 0 && keyCode === ENTER) { 
     escenaActual = 1; biciX = 40; paradasCompletadas = 0; 
     multiplicadorTono = 1.0; 
