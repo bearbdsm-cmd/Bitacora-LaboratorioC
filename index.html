@@ -4,11 +4,42 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/addons/p5.sound.min.js"></script>
     
-    
-    
-    <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <style>
+      /* 1. Configuración del contenedor global */
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        /* 🎨 Fondo idéntico al background(25) de tus escenas */
+        background-color: #191919; 
+        overflow: hidden; /* Elimina barras de scroll */
+        
+        /* Centrado absoluto por si el escalado deja mínimos bordes */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* 2. El truco maestro para el Canvas de p5.js */
+      canvas {
+        /* Estiramos el lienzo para que ocupe todo el ancho y alto visual */
+        width: 100vw !important;
+        height: 100vh !important;
+        
+        /* Asegura que se mantenga expandido de borde a borde */
+        display: block;
+        object-fit: fill; 
+        
+        /* 👾 ESTILO RETRO CRT: Si quieres que los píxeles se vean definidos 
+           y no borrosos al estirarse, dejamos activado el renderizado de pixeles */
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+    </style>
   </head>
   <body>
     <main>
