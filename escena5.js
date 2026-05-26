@@ -1,6 +1,6 @@
 // =====================================================================
 // Módulo de la Sesión 5 - escena5.js (ARCADE CONTINUAR / EPÍLOGO)
-// Menú de decisión interactivo, imagen final y cierre de la obra
+// Menú de decisión interactivo, imagen interactiva expandida y epílogo
 // =====================================================================
 
 let eleccionContinuar = 0; // 0 = Esperando decisión, 1 = Presionó SÍ, 2 = Presionó NO
@@ -11,49 +11,66 @@ function dibujarEscena5Epilogo() {
   // 1. CASO APAGADO TOTAL (Eligió NO)
   if (eleccionContinuar === 2) {
     background(0); // Pantalla negra absoluta de terminal apagada
-    cursor();
+    cursor(ARROW);
     return;
   }
 
   // 2. CASO REVELACIÓN FINAL (Eligió SÍ)
   if (eleccionContinuar === 1) {
     background(10, 10, 25);
-    cursor();
 
     // Carga asíncrona de tu imagen "1.jpg" para que no congele el canvas
     if (!imagenCargadaRez) {
-      // Nota: Asegúrate de tener el archivo "1.jpg" en tu carpeta de p5.js
       imagenFinalObra = loadImage('1.jpg', () => {
         imagenCargadaRez = true;
       });
     }
 
+    // Definición geométrica de la imagen expandida
+    let imgX = width / 2;
+    let imgY = height / 2 - 95; // Movida hacia arriba para dar aire
+    let imgW = 520; // 🌟 Expandida para una lectura óptima
+    let imgH = 290;
+
+    // Detectamos si el mouse está posicionado encima de la imagen ampliada
+    let sobreImagen = (mouseX > imgX - imgW/2 && mouseX < imgX + imgW/2 && 
+                       mouseY > imgY - imgH/2 && mouseY < imgY + imgH/2);
+
     // Dibujamos la imagen centrada si ya está lista en memoria
     if (imagenCargadaRez && imagenFinalObra) {
       push();
       imageMode(CENTER);
-      // Escalamos la imagen de forma sutil en el pecho de la pantalla
-      image(imagenFinalObra, width / 2, height / 2 - 40, 240, 180);
+      
+      // Si pasa el mouse sobre la imagen, aplicamos un sutil marco de enfoque ciberespacial
+      if (sobreImagen) {
+        stroke(0, 255, 100); strokeWeight(3); noFill();
+        rect(imgX - imgW/2, imgY - imgH/2, imgW, imgH, 2);
+      }
+      
+      image(imagenFinalObra, imgX, imgY, imgW, imgH);
       pop();
     }
 
-    // Cuadro de texto final estilizado en color verde de sistema estabilizado
+    // Cuadro de texto final estilizado en color verde de sistema estabilizado (Empujado a Y:330)
     fill(10, 15, 35, 230); stroke(0, 255, 100); strokeWeight(2);
-    rect(80, 310, width - 160, 140, 4);
+    rect(80, 330, width - 160, 140, 4);
 
     fill(0, 255, 100); noStroke(); textAlign(CENTER, TOP); textFont("Courier New"); textSize(13);
-    let textoCierreObra = "SISTEMA INTEGRADO COMPLETO - BITACORA A MÁXIMA CAPACIDAD\n\n¿Qué nos espera ahora? Me interesa seguir perfeccionando este proceso. Me gustaría que le comunicación entre las visuales y SonicPi fuera bidireccional, explorar otras oportunidades de manipulación, y el tema de la performance activó un bichito que no tenía haha";
-    text(textoCierreObra, 100, 325, width - 200);
+    let textoCierreObra = "SISTEMA INTEGRADO COMPLETO - BITACORA A MÁXIMA CAPACIDAD\n\n¿Qué nos espera ahora? Me interesa seguir perfeccionando este proceso. Me gustaría que la comunicación entre las visuales y SonicPi fuera bidireccional, explorar otras oportunidades de manipulación, y el tema de la performance activó un bichito que no tenía haha";
+    text(textoCierreObra, 100, 345, width - 200);
 
-    // Botón retro para reiniciar el juego completo si se desea volver al inicio (0)
-    fill(255, 255, 0); textSize(11); textAlign(CENTER);
-    text("", width / 2, 430);
+    // 👆 CONTROL DE CURSOR INTUITIVO EN EL FINAL
+    // Si flota sobre la imagen o sobre el texto de reinicio inferior (Y > 440) ponemos mano
+    if (sobreImagen || mouseY > 445) {
+      cursor(HAND);
+    } else {
+      cursor(ARROW);
+    }
     return;
   }
 
   // 🕹️ 3. CASO MENÚ EN ESPERA (¿CONTINUE?)
   background(5, 5, 15);
-  noCursor();
 
   // Texto gigante parpadeante estilo arcade
   textAlign(CENTER, CENTER); textFont("Courier New");
@@ -88,18 +105,37 @@ function dibujarEscena5Epilogo() {
   }
 
   // Guía visual interactiva de mouse (Manito arcade)
-  cursor(HAND);
+  if (distSi < 40 || distNo < 40) {
+    cursor(HAND);
+  } else {
+    cursor(ARROW);
+  }
 }
 
 // 📦 EVALUACIÓN DE CLICK EXCLUSIVA PARA LA ESCENA 5
 function evaluarClickEpilogo() {
-  // Si ya estábamos en el final (SÍ) y clickean abajo, reseteamos todo al logo (Escena 0)
+  // Lógica interactiva si ya estamos en la revelación final (SÍ)
   if (eleccionContinuar === 1) {
-    escenaActual = 0;
-    eleccionContinuar = 0;
-    paradasCompletadas = 0;
-    imagenCargadaRez = false;
-    dispararNotaPianoProgresiva();
+    let imgX = width / 2;
+    let imgY = height / 2 - 95;
+    let imgW = 520;
+    let imgH = 290;
+
+    // 1. Si clickean DIRECTO en la imagen ampliada, abre el archivo en pestaña nueva
+    if (mouseX > imgX - imgW/2 && mouseX < imgX + imgW/2 && 
+        mouseY > imgY - imgH/2 && mouseY < imgY + imgH/2) {
+      window.open('1.jpg', '_blank'); // 🌟 Abre la matriz en gloria y majestad para la comisión
+      return;
+    }
+
+    // 2. Si clickean abajo (en el área libre del texto), reinicia la obra completa a la Escena 0
+    if (mouseY > 440) {
+      escenaActual = 0;
+      eleccionContinuar = 0;
+      paradasCompletadas = 0;
+      imagenCargadaRez = false;
+      dispararNotaPianoProgresiva();
+    }
     return;
   }
 
