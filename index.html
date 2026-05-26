@@ -14,37 +14,55 @@
         padding: 0;
         width: 100%;
         height: 100%;
-        /* 🎨 Fondo gris oscuro idéntico al fondo de tus escenas */
         background-color: #191919; 
-        overflow: hidden; /* Elimina cualquier barra de scroll molesta */
+        overflow: hidden; 
         
-        /* Centrado absoluto perfecto para las franjas de desborde */
+        /* Contenedor Flex para que tanto el canvas como sus videos se posicionen juntos al centro */
         display: flex;
         justify-content: center;
         align-items: center;
       }
 
-      /* 2. ESCALADO SEGURO DEL CANVAS CON PROPORCIÓN DE MARCA */
+      /* Contenedor relativo que agrupa el canvas y los elementos flotantes */
+      main {
+        position: relative;
+        /* Forzamos a que el contenedor mantenga la proporción 16:10 nativa de tu obra */
+        width: 100vw;
+        height: 62.5vw; /* 500 / 800 = 0.625 (Proporción exacta) */
+        max-width: 160vh; /* 800 * (100 / 500) = 160 */
+        max-height: 100vh;
+      }
+
+      /* 2. ESCALADO SEGURO DEL CANVAS */
       canvas {
-        /* Estira el lienzo de forma fluida adaptándose al tamaño del navegador */
-        width: 100vw !important;
-        height: 100vh !important;
-        
-        /* 🌟 EL TRUCO MAESTRO: Conserva la proporción original de 800x500 sin deformar.
-           Si la pantalla es muy ancha, dejará franjas vacías limpias a los lados,
-           y como el fondo de body es del mismo color, se camuflarán por completo. */
-        object-fit: contain; 
+        width: 100% !important;
+        height: 100% !important;
         display: block;
-        
-        /* Mantiene la nitidez estética de los píxeles al ampliarse */
         image-rendering: pixelated;
         image-rendering: crisp-edges;
+      }
+
+      /* 🌟 EL TRUCO MAESTRO MULTIMEDIA PARA LOS VIDEOS FLOTANTES */
+      video {
+        /* Tomamos el tamaño que le dio p5.js (ej: 200px) y lo convertimos a porcentaje 
+           respecto al canvas original de 800px (200 / 800 = 25%) */
+        width: 25% !important; 
+        height: auto !important;
+        
+        /* Transformamos las coordenadas fijas de p5.js en posiciones relativas dinámicas */
+        position: absolute !important;
+        /* En la Escena 3 y 4 el video se ubica a la derecha y al centro del monitor fucsia */
+        left: 65% !important; 
+        top: 33% !important;
+        
+        z-index: 10; /* Asegura que flote arriba del canvas */
+        box-shadow: 0 0 15px rgba(0,0,0,0.5); /* Sombra estética retro */
       }
     </style>
   </head>
   <body>
     <main>
-    </main>
+      </main>
     <script src="escena0.js"></script>
     <script src="escena1.js"></script>
     <script src="escena2.js"></script>
