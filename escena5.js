@@ -1,6 +1,6 @@
 // =====================================================================
 // Módulo de la Sesión 5 - escena5.js (ARCADE CONTINUAR / EPÍLOGO)
-// Menú de decisión interactivo, imagen interactiva expandida y epílogo
+// Menú de decisión interactivo, imagen interactiva compacta y epílogo
 // =====================================================================
 
 let eleccionContinuar = 0; // 0 = Esperando decisión, 1 = Presionó SÍ, 2 = Presionó NO
@@ -26,13 +26,13 @@ function dibujarEscena5Epilogo() {
       });
     }
 
-    // Definición geométrica de la imagen expandida
+    // 🌟 REGRESO AL TAMAÑO ORIGINAL PROTEGIDO
     let imgX = width / 2;
-    let imgY = height / 2 - 95; // Movida hacia arriba para dar aire
-    let imgW = 520; // 🌟 Expandida para una lectura óptima
-    let imgH = 290;
+    let imgY = height / 2 - 40; 
+    let imgW = 240; 
+    let imgH = 180;
 
-    // Detectamos si el mouse está posicionado encima de la imagen ampliada
+    // Detectamos si el mouse está posicionado encima de la imagen compacta
     let sobreImagen = (mouseX > imgX - imgW/2 && mouseX < imgX + imgW/2 && 
                        mouseY > imgY - imgH/2 && mouseY < imgY + imgH/2);
 
@@ -41,9 +41,9 @@ function dibujarEscena5Epilogo() {
       push();
       imageMode(CENTER);
       
-      // Si pasa el mouse sobre la imagen, aplicamos un sutil marco de enfoque ciberespacial
+      // Si pasa el mouse sobre la imagen, aplicamos un sutil marco interactivo
       if (sobreImagen) {
-        stroke(0, 255, 100); strokeWeight(3); noFill();
+        stroke(0, 255, 100); strokeWeight(2); noFill();
         rect(imgX - imgW/2, imgY - imgH/2, imgW, imgH, 2);
       }
       
@@ -51,17 +51,17 @@ function dibujarEscena5Epilogo() {
       pop();
     }
 
-    // Cuadro de texto final estilizado en color verde de sistema estabilizado (Empujado a Y:330)
+    // 🌟 REUBICACIÓN DEL CUADRO VERDE DE TEXTO (Posición original a Y: 310)
     fill(10, 15, 35, 230); stroke(0, 255, 100); strokeWeight(2);
-    rect(80, 330, width - 160, 140, 4);
+    rect(80, 310, width - 160, 140, 4);
 
     fill(0, 255, 100); noStroke(); textAlign(CENTER, TOP); textFont("Courier New"); textSize(13);
     let textoCierreObra = "SISTEMA INTEGRADO COMPLETO - BITACORA A MÁXIMA CAPACIDAD\n\n¿Qué nos espera ahora? Me interesa seguir perfeccionando este proceso. Me gustaría que la comunicación entre las visuales y SonicPi fuera bidireccional, explorar otras oportunidades de manipulación, y el tema de la performance activó un bichito que no tenía haha";
-    text(textoCierreObra, 100, 345, width - 200);
+    text(textoCierreObra, 100, 325, width - 200);
 
     // 👆 CONTROL DE CURSOR INTUITIVO EN EL FINAL
-    // Si flota sobre la imagen o sobre el texto de reinicio inferior (Y > 440) ponemos mano
-    if (sobreImagen || mouseY > 445) {
+    // Si flota sobre la imagen o sobre el texto de reinicio inferior (Y > 430) ponemos mano
+    if (sobreImagen || mouseY > 430) {
       cursor(HAND);
     } else {
       cursor(ARROW);
@@ -117,19 +117,19 @@ function evaluarClickEpilogo() {
   // Lógica interactiva si ya estamos en la revelación final (SÍ)
   if (eleccionContinuar === 1) {
     let imgX = width / 2;
-    let imgY = height / 2 - 95;
-    let imgW = 520;
-    let imgH = 290;
+    let imgY = height / 2 - 40;
+    let imgW = 240;
+    let imgH = 180;
 
-    // 1. Si clickean DIRECTO en la imagen ampliada, abre el archivo en pestaña nueva
+    // 1. Si clickean DIRECTO en la imagen compacta, abre el archivo en resolución completa
     if (mouseX > imgX - imgW/2 && mouseX < imgX + imgW/2 && 
         mouseY > imgY - imgH/2 && mouseY < imgY + imgH/2) {
-      window.open('1.jpg', '_blank'); // 🌟 Abre la matriz en gloria y majestad para la comisión
+      window.open('1.jpg', '_blank'); 
       return;
     }
 
-    // 2. Si clickean abajo (en el área libre del texto), reinicia la obra completa a la Escena 0
-    if (mouseY > 440) {
+    // 2. Si clickean en la zona inferior libre, reinicia la obra completa a la Escena 0
+    if (mouseY > 430) {
       escenaActual = 0;
       eleccionContinuar = 0;
       paradasCompletadas = 0;
