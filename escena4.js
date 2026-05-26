@@ -46,10 +46,10 @@ function dibujarEscena4Rez() {
   line(width / 2 - 20, 58, width / 2 - 45, 35);
   line(width / 2 + 20, 58, width / 2 + 45, 35);
 
-  // 🕹️ 2. REJILLA DEL SECUENCIADOR ADAPTADA VISUALMENTE (7 Pasos x 4 Pistas)
+  // 🕹️ 2. REJILLA DEL SECUENCIADOR ADAPTADA VISUALMENTE (Pasos x 4 Pistas)
   let startX = 145;
   let startY = 180;
-  let cellW = 73; // Ampliado de 60 a 73 para equilibrar las 7 casillas de forma perfecta
+  let cellW = 73; // Ampliado de 60 a 73 para equilibrar las casillas de forma perfecta
   let cellH = 40;
   let nombresPistas = ["KICK", "CLAP", "C-HAT", "O-HAT"];
   let coloresPistas = [color(255, 255, 0), color(255, 0, 128), color(0, 255, 255), color(0, 255, 100)];
@@ -58,7 +58,7 @@ function dibujarEscena4Rez() {
     fill(200); noStroke(); textAlign(RIGHT, CENTER); textSize(11); textFont("Courier New");
     text(nombresPistas[i], startX - 20, startY + (i * cellH) + cellH / 2);
 
-    // Renderizamos solo 7 tiempos
+    // Renderizamos solo tiempos
     for (let j = 0; j < 7; j++) {
       let x = startX + (j * cellW);
       let y = startY + (i * cellH);
@@ -67,7 +67,7 @@ function dibujarEscena4Rez() {
       else fill(15, 15, 35);
       rect(x, y, cellW, cellH);
 
-      // El cursor brillante corre en base al módulo de 7 pasos
+      // El cursor brillante corre en base al módulo de pasos
       if (pasoActualBeat === j && paradasCompletadas >= 7) {
         fill(255, 255, 255, 90);
         rect(x, y, cellW, cellH);
@@ -75,8 +75,8 @@ function dibujarEscena4Rez() {
     }
   }
 
-  // ⏳ 3. MOTOR DE AUDIO AUTOMÁTICO ADAPTADO A 7 TIEMPOS
-  if (paradasCompletadas >= 7 && frameCount % 15 === 0) {
+  // ⏳ 3. MOTOR DE AUDIO AUTOMÁTICO ADAPTADO A TIEMPOS
+  if (paradasCompletadas >= && frameCount % 15 === 0) {
     pasoActualBeat = (pasoActualBeat + 1) % 7; // El lazo corre de 0 a 6
     ejecutarSonidoPaso(pasoActualBeat);
   }
@@ -125,14 +125,14 @@ function dispararClap()  { oscFeria.setType('square'); oscFeria.freq(750);  envF
 function dispararCHat()  { oscFeria.setType('sine');   oscFeria.freq(8500); envFeria.setADSR(0.002, 0.02, 0.0, 0.01); envFeria.play(oscFeria); }
 function dispararOHat()  { oscFeria.setType('sine');   oscFeria.freq(7200); envFeria.setADSR(0.01, 0.18, 0.0, 0.08);  envFeria.play(oscFeria); }
 
-// 🌟 INTERACCIONES SUCESIVAS COMPACTADAS A 7 TIEMPOS
+// 🌟 INTERACCIONES SUCESIVAS COMPACTADAS A TIEMPOS
 function evaluarClickRez() {
   if (mostrandoTexto || paradasCompletadas >= 7) return;
 
   if (mouseX > width / 2 - 60 && mouseX < width / 2 + 60 && mouseY > 55 && mouseY < 135) {
     let pasoAProg = paradasCompletadas; // 0 a 6
     
-    // Distribución rítmica adaptada para el loop asimétrico de 7 tiempos
+    // Distribución rítmica adaptada para el loop asimétrico de tiempos
     if (pasoAProg === 0) { rejillaRez[0][0] = 1; rejillaRez[0][4] = 1; dispararKick(); }
     if (pasoAProg === 1) { rejillaRez[1][2] = 1; rejillaRez[1][5] = 1; dispararClap(); }
     if (pasoAProg === 2) { 
@@ -152,7 +152,7 @@ function evaluarClickRez() {
   }
 }
 
-// 📄 ALMACENAMIENTO DE TEXTOS ACADÉMICOS DE 7 PASOS
+// 📄 ALMACENAMIENTO DE TEXTOS ACADÉMICOS DE PASOS
 function triggerTextoRez(n) {
   scrollTextoY = 0; sliderPosPercent = 0;
   paradasCompletadas = n;
@@ -166,7 +166,7 @@ function triggerTextoRez(n) {
       textoMostrar = "REFLEXIONES DE CAMPO:\n\nLa obra mezcla dos mundos. Por un lado, hay un motor rítmico que corre de fondo y ordena el caos para que todo suene en armonía. Por el otro, el espectador tiene el control total para alterar el tiempo: a través de unos botones inferiores se pueden activar efectos extremos que rompen y destruyen el audio en tiempo real, mientras que un slider lateral permite estirar o acelerar la velocidad de los sonidos a niveles impensados.\n\nLa libertad de las herramientas técnicas abrieron la puerta a que me interesara por conocer a nivel más teórico el funcionamiento de los beats y referentes musicales:\n- Switch Angel (https://www.instagram.com/_switch_angel/)\n- Ableton Learning Music (https://learningmusic.ableton.com/make-beats/make-beats.html)";
       break;
     case 3:
-      textoMostrar = "ASOCIACIONES MUSICALES:\n\nREZ INFINITE\nEspera que se cargue el video\n\nInspirado en Rez Infinite —un videojuego donde cada acción de quien juega genera capas de música y ritmos que repiten secuencias interactuando con el espectador—, quise crear un espacio donde las imágenes no fueran solo para mirar, sino para tocar.\n\nSe diseñó una matriz de 7 pasos por 4 canales independientes (Drums, Claps, Synth, Bass). Para garantizar la consistencia estética y que el instrumento fuera siempre armónico, tomé la decisión crítica de acotar el universo tonal forzando los valores de matiz cromático (0-360) a una Escala Pentatónica mediante funciones de módulo matemático. Con un solo click un botón inferior activa/reproduce la referencia del canal, y con el siguiente click limpia la pista (silencio), optimizando los tiempos de reacción en la performance.";
+      textoMostrar = "ASOCIACIONES MUSICALES:\n\nREZ INFINITE\nEspera que se cargue el video\n\nInspirado en Rez Infinite —un videojuego donde cada acción de quien juega genera capas de música y ritmos que repiten secuencias interactuando con el espectador—, quise crear un espacio donde las imágenes no fueran solo para mirar, sino para tocar.\n\nSe diseñó una matriz de 16 pasos por 4 canales independientes (Drums, Claps, Synth, Bass). Para garantizar la consistencia estética y que el instrumento fuera siempre armónico, tomé la decisión crítica de acotar el universo tonal forzando los valores de matiz cromático (0-360) a una Escala Pentatónica mediante funciones de módulo matemático. Con un solo click un botón inferior activa/reproduce la referencia del canal, y con el siguiente click limpia la pista (silencio), optimizando los tiempos de reacción en la performance.";
       break;
     case 4:
       textoMostrar = "AUTOENTREVISTA:\n\n— Existe una contradicción en tu trabajo: por un lado, hay un motor rítmico que ordena el caos en armonía, y por el otro, le das al usuario herramientas para destruir el audio en tiempo real. ¿Cuál es el propósito de esta tensión? \n\n— Quería explorar mi propia autonomía frente al algoritmo. Quería crear un espacio donde la música evolucionara con quien juega o interactúa. El motor rítmico de fondo es la estructura que sostiene la obra, pero los botones inferiores y el slider lateral son herramientas de subversión temporal: le permiten al usuario estirar, acelerar y procesar destructivamente los sonidos a niveles impensados. Esa tensión entre el orden métrico y el procesamiento  invita al espectador a llevar el Imagófono al límite. ";
