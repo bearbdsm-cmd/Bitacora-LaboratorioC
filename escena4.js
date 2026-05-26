@@ -178,7 +178,7 @@ function triggerTextoRez(n) {
       textoMostrar = "POÉTICA:\n\nIMAGÓFONO v1.0\n\nLas imágenes digitales no solo se pueden ver. ¿Qué sonido hace un píxel? ¿Cómo suena el rojo, el azul, el cian o el magenta? Esta parte de la obra es mucho más física, expresiva y experimental. Se invita al espectador a llevar el imagófono al límite, inspirarlos con las imágenes desplegadas y descubrir qué música pueden construir con su cuerpo.";
       break;
     case 7:
-      textoMostrar = "LA MÚSICA HA SIDO CREADA:\n\nEnfatizar las repeticiones.\n\nAquí la frase fue más una confirmación de lo que ya quería hacer. La construcción del sintetizador asimétrico que repite 7 tiempos me ayudó a controlar la orquesta de elementos que quería incorporar de las sesiones previas para cerrar la bitácora de forma simétrica.\n\n- Siempre darse crédito por tener algo más que personalidad.\n- Llama a tu madre y pregúntale qué hacer.\n\n#Beats #Ritmo #Secuenciador";
+      textoMostrar = "LA MÚSICA HA SIDO CREADA:\n\nEnfatizar las repeticiones.\n\nAqui la frase fue más una confirmación de lo que ya quería hacer. La construcción del sintetizador que repetía 16 tiempos me ayudaba mucho a controlar la orquesta de elementos que quería incorporar. \n\n- Siempre darse crédito por tener algo más que personalidad.\n- Llama a tu madre y pregúntale qué hacer.\n\n#Beats #Ritmo #Secuenciador";
       break;
   }
 }
