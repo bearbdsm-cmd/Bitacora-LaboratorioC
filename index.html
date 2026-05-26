@@ -43,20 +43,22 @@
       }
 
       /* 🌟 EL TRUCO MAESTRO MULTIMEDIA PARA LOS VIDEOS FLOTANTES */
+/* 🌟 EL PARCHE MULTIMEDIA DEFINITIVO */
       video {
-        /* Tomamos el tamaño que le dio p5.js (ej: 200px) y lo convertimos a porcentaje 
-           respecto al canvas original de 800px (200 / 800 = 25%) */
-        width: 25% !important; 
+        /* Bloqueamos el tamaño del video proporcional al ancho de la pantalla */
+        width: 25vw !important; 
+        max-width: 400px !important; /* Tope para que no crezca infinito en monitores 4K */
         height: auto !important;
         
-        /* Transformamos las coordenadas fijas de p5.js en posiciones relativas dinámicas */
         position: absolute !important;
-        /* En la Escena 3 y 4 el video se ubica a la derecha y al centro del monitor fucsia */
-        left: 65% !important; 
-        top: 33% !important;
         
-        z-index: 10; /* Asegura que flote arriba del canvas */
-        box-shadow: 0 0 15px rgba(0,0,0,0.5); /* Sombra estética retro */
+        /* 🎯 COORDENADAS RECALIBRADAS EN Vw:
+           Alinean el video milimétricamente con el centro del monitor fucsia */
+        left: 65.2% !important; 
+        top: 35.8% !important;
+        
+        z-index: 10; 
+        box-shadow: 0 0 15px rgba(0,0,0,0.6); 
       }
     </style>
   </head>
