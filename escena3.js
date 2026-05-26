@@ -158,7 +158,7 @@ function triggerTextoTV(n) {
       textoMostrar = "POÉTICA:\n\n-DATA+MUSIC\n\nInspirado en la energía y las capas armónicas del J-Pop moderno (como Yoasobi o Ado), esta obra despliega los elementos que son relevantes para explicar el proceso de abandonar los datos y encausarlos hacia la música. En lugar de desechar mis pruebas anteriores, tomé la decisión de meter todas las etapas de mi experimentación dentro del mismo saco y ordenarlas a través de reglas musicales claras. \n\nEsta escena es una invitación a entender que poner límites y elegir qué sonidos queremos escuchar no nos quita libertad, sino que nos da el control para crear algo armónico.";
       break;
     case 7:
-      textoMostrar = "LLEGAMOS A LA CIMA:\n\nFrente a la Disyuntiva elegir las 2 opciones.\n\nMe inspiró a no abandonar mis ejercicios previos (los que mostraban el proceso y dejarlo como parte integra de la obra).\n- Perderse en territorio inútil.\nUn objeto muy pequeño, su centro\n\n#Biker #Armonías #SonidoAMúsica";
+      textoMostrar = "LLEGAMOS A LA CIMA:\n\nFrente a la Disyuntiva elegir las 2 opciones.\n\nMe inspiró a no abandonar mis ejercicios previos (los que mostraban el proceso y dejarlo como parte integra de la obra).\n- Perderse en territorio inútil.\n- Un objeto muy pequeño, su centro\n\n#Biker #Armonías #SonidoAMúsica";
       break;
   }
 }
