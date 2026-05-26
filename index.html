@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
+<style>
       /* 1. CONFIGURACIÓN DEL ENTORNO DE FONDO */
       html, body {
         margin: 0;
@@ -17,19 +17,18 @@
         background-color: #191919; 
         overflow: hidden; 
         
-        /* Contenedor Flex para que tanto el canvas como sus videos se posicionen juntos al centro */
         display: flex;
         justify-content: center;
         align-items: center;
       }
 
-      /* Contenedor relativo que agrupa el canvas y los elementos flotantes */
+      /* 🌟 EL ANCLA GLOBAL: Este contenedor mantiene la proporción 16:10 
+         y se congela cuando llega al borde de la pantalla */
       main {
         position: relative;
-        /* Forzamos a que el contenedor mantenga la proporción 16:10 nativa de tu obra */
         width: 100vw;
-        height: 62.5vw; /* 500 / 800 = 0.625 (Proporción exacta) */
-        max-width: 160vh; /* 800 * (100 / 500) = 160 */
+        height: 62.5vw; /* Mantiene la proporción 800x500 (500/800 = 0.625) */
+        max-width: 160vh; /* Se congela en pantallas muy anchas */
         max-height: 100vh;
       }
 
@@ -42,20 +41,21 @@
         image-rendering: crisp-edges;
       }
 
-      /* 🌟 EL TRUCO MAESTRO MULTIMEDIA PARA LOS VIDEOS FLOTANTES */
-/* 🌟 EL PARCHE MULTIMEDIA DEFINITIVO */
+      /* 🌟 EL PARCHE MULTIMEDIA ABSOLUTO */
       video {
-        /* Bloqueamos el tamaño del video proporcional al ancho de la pantalla */
-        width: 25vw !important; 
-        max-width: 400px !important; /* Tope para que no crezca infinito en monitores 4K */
+        /* 🎯 TAMAÑO EN % RESPECTO AL LIENZO: 
+           Como la pantalla del TV mide 200px de un canvas de 800px, 
+           su ancho real debe ser exactamente el 25% del contenedor. 
+           Si el contenedor se congela, el video se congela con él. */
+        width: 25% !important; 
         height: auto !important;
         
         position: absolute !important;
         
-        /* 🎯 COORDENADAS RECALIBRADAS EN Vw:
-           Alinean el video milimétricamente con el centro del monitor fucsia */
-        left: 65.2% !important; 
-        top: 35.8% !important;
+        /* 🎯 COORDENADAS MATEMÁTICAS RESPECTO AL CONTENEDOR:
+           Calculadas con precisión desde la esquina superior izquierda del <main> */
+        left: 65.1% !important; 
+        top: 33.1% !important;
         
         z-index: 10; 
         box-shadow: 0 0 15px rgba(0,0,0,0.6); 
